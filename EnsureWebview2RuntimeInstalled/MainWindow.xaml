@@ -1,0 +1,31 @@
+﻿<Window x:Class="EnsureWebview2RuntimeInstalled.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:EnsureWebview2RuntimeInstalled"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="WebView2Runtime Installer"
+        Width="Auto"
+        Height="Auto"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="None"
+        mc:Ignorable="d">
+	<StackPanel Margin="10">
+		<Label FontSize="18" FontWeight="Bold">正在安装WebView2Runtime,请稍候</Label>
+		<StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Label VerticalAlignment="Center">下载进度:</Label>
+				<Label x:Name="progressLabel">0%</Label>
+				<Label>下载速度:</Label>
+				<Label x:Name="speedLabel">0M/s</Label>
+			</StackPanel>
+		</StackPanel>
+		<ProgressBar x:Name="progressBar"
+					 Height="10"
+                     Margin="5,0"
+                     Maximum="100"
+                     Minimum="0"
+                     Value="50" />
+	</StackPanel>
+</Window>

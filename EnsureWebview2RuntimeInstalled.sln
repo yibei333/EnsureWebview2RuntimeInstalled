@@ -3,20 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsureWebview2RuntimeInstalled", "EnsureWebview2RuntimeInstalled\EnsureWebview2RuntimeInstalled.csproj", "{D78DE034-5100-4869-A8B7-81C0323BDA44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnsureWebview2RuntimeInstalled", "EnsureWebview2RuntimeInstalled\EnsureWebview2RuntimeInstalled.csproj", "{CBB2E291-C7E1-432A-90CD-B7FE688F03E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBB2E291-C7E1-432A-90CD-B7FE688F03E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB2E291-C7E1-432A-90CD-B7FE688F03E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB2E291-C7E1-432A-90CD-B7FE688F03E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB2E291-C7E1-432A-90CD-B7FE688F03E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D78DE034-5100-4869-A8B7-81C0323BDA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D78DE034-5100-4869-A8B7-81C0323BDA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D78DE034-5100-4869-A8B7-81C0323BDA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D78DE034-5100-4869-A8B7-81C0323BDA44}.Release|Any CPU.Build.0 = Release|Any CPU
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEB73F70-C1B9-484B-A0A0-2E98E6C8A76F}
 	EndGlobalSection
 EndGlobal
