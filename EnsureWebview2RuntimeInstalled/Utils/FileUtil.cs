@@ -11,16 +11,8 @@ namespace EnsureWebview2RuntimeInstalled
         public static readonly string FilePath = AppDomain.CurrentDomain.BaseDirectory.CombinePath("MicrosoftEdgeWebView2RuntimeInstallerX64.exe");
         public static async Task Download(Action<HttpProgress> progressAction)
         {
-            try
-            {
-                CleanTempFile();
-                await HttpUtil.Download("https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/58f618e2-bf87-4672-933a-425072a73ec5/MicrosoftEdgeWebView2RuntimeInstallerX64.exe", FilePath, progressAction);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                throw;
-            }
+            CleanTempFile();
+            await HttpUtil.Download("https://go.microsoft.com/fwlink/p/?LinkId=2124703", FilePath, progressAction);
         }
 
         public static async Task<string> Install()

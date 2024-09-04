@@ -5,27 +5,113 @@
         xmlns:local="clr-namespace:EnsureWebview2RuntimeInstalled"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="WebView2Runtime Installer"
-        Width="Auto"
-        Height="Auto"
+        MinWidth="350"
+        MinHeight="120"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         WindowStyle="None"
-        mc:Ignorable="d">
-	<StackPanel Margin="10">
-		<Label FontSize="18" FontWeight="Bold">正在安装WebView2Runtime,请稍候</Label>
-		<StackPanel>
-			<StackPanel Orientation="Horizontal">
-				<Label VerticalAlignment="Center">下载进度:</Label>
-				<Label x:Name="progressLabel">0%</Label>
-				<Label>下载速度:</Label>
-				<Label x:Name="speedLabel">0M/s</Label>
-			</StackPanel>
-		</StackPanel>
-		<ProgressBar x:Name="progressBar"
-					 Height="10"
-                     Margin="5,0"
-                     Maximum="100"
-                     Minimum="0"
-                     Value="50" />
-	</StackPanel>
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Window.Resources>
+        <local:DownloadingVisibiltyConverter x:Key="downloadingConverter"></local:DownloadingVisibiltyConverter>
+        <local:InstallingVisibiltyConverter x:Key="installingConverter"></local:InstallingVisibiltyConverter>
+        <local:ErrorVisibiltyConverter x:Key="errorConverter"></local:ErrorVisibiltyConverter>
+
+        <SolidColorBrush x:Key="lightOpacity">#cfffffff</SolidColorBrush>
+        <SolidColorBrush x:Key="blue">#0d6efd</SolidColorBrush>
+        <SolidColorBrush x:Key="blueDark">#0a58ca</SolidColorBrush>
+        <SolidColorBrush x:Key="blueDarker">#052c65</SolidColorBrush>
+        <SolidColorBrush x:Key="grayLight">#f8f9fa</SolidColorBrush>
+        <SolidColorBrush x:Key="gray">#adb5bd</SolidColorBrush>
+        <SolidColorBrush x:Key="grayDark">#343a40</SolidColorBrush>
+        <SolidColorBrush x:Key="red">#dc3545</SolidColorBrush>
+        
+        <Style x:Key="header" TargetType="Label">
+            <Setter Property="FontSize" Value="24"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource grayDark}"></Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{StaticResource grayDark}"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Margin" Value="0 4"></Setter>
+            <Setter Property="Padding" Value="4 0"></Setter>
+        </Style>
+        <Style TargetType="ProgressBar">
+            <Setter Property="Height" Value="18"></Setter>
+            <Setter Property="Margin" Value="6 12"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="{StaticResource gray}"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"></Setter>
+            <Setter Property="Margin" Value="6 12"></Setter>
+            <Setter Property="Padding" Value="6"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="MinHeight" Value="100"></Setter>
+            <Setter Property="IsReadOnly" Value="True"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource red}"></Setter>
+            <Setter Property="BorderBrush" Value="{StaticResource gray}"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource blue}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource grayLight}"></Setter>
+            <Setter Property="Padding" Value="0 8"></Setter>
+            <Setter Property="Margin" Value="6"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Padding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Padding}" 
+                                Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Background}">
+                            <ContentPresenter HorizontalAlignment="Center"></ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource ResourceKey=blueDark}"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource ResourceKey=blueDarker}"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Background="{StaticResource lightOpacity}">
+        <StackPanel Visibility="{Binding State,Converter={StaticResource downloadingConverter}}" Margin="18">
+            <Label Style="{StaticResource header}">正在下载WebView2Runtime,请稍候...</Label>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label VerticalAlignment="Center">下载进度:</Label>
+                    <Label x:Name="progressLabel" Foreground="{StaticResource blue}">0 %</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>下载速度:</Label>
+                    <Label x:Name="speedLabel" Foreground="{StaticResource blue}">0 kb/s</Label>
+                </StackPanel>
+            </StackPanel>
+            <ProgressBar x:Name="progressBar" Maximum="100" />
+        </StackPanel>
+
+        <StackPanel Visibility="{Binding State,Converter={StaticResource installingConverter}}" Margin="18">
+            <Label Style="{StaticResource header}">正在安装WebView2Runtime,请稍候...</Label>
+            <ProgressBar IsIndeterminate="True"/>
+        </StackPanel>
+        
+        <StackPanel Visibility="{Binding State,Converter={StaticResource errorConverter}}" Margin="18">
+            <Label Style="{StaticResource header}">发生错误</Label>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TextBox Text="{Binding ErrorMessage}"></TextBox>
+            </ScrollViewer>
+            <Button Click="Exit_Click">退出</Button>
+        </StackPanel>
+    </StackPanel>
 </Window>

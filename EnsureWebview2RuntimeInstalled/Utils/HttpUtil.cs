@@ -51,7 +51,7 @@ namespace EnsureWebview2RuntimeInstalled
             }
         }
 
-        public string ProgressString => $"{Progress}%";
+        public string ProgressString => $"{Progress} %";
 
         public string Speed => _speed.Calc(Transfered);
 
@@ -77,7 +77,7 @@ namespace EnsureWebview2RuntimeInstalled
         {
             TransferTime = downloadTime;
             TotalByteCount = 0.0;
-            Speed = "0KB/S";
+            Speed = "0 kb/s";
         }
 
         public string Calc(double currentByteCount)
@@ -88,7 +88,7 @@ namespace EnsureWebview2RuntimeInstalled
                 return Speed;
             }
 
-            Speed = $"{(int)((currentByteCount - TotalByteCount) / 1024.0 / Peroid.TotalSeconds)}KB/S";
+            Speed = $"{(int)((currentByteCount - TotalByteCount) / 1024.0 / Peroid.TotalSeconds)} kb/s";
             TotalByteCount = currentByteCount;
             TransferTime = now;
             return Speed;
