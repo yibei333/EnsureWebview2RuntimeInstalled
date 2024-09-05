@@ -10,8 +10,8 @@ namespace EnsureWebview2RuntimeInstalled
     /// </summary>
     public partial class MainWindow : Window
     {
-        static DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(State), typeof(MainWindow),new FrameworkPropertyMetadata(State.Default));
-        static DependencyProperty ErrorMessageProperty = DependencyProperty.Register(nameof(ErrorMessage), typeof(string), typeof(MainWindow));
+        static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(State), typeof(MainWindow), new FrameworkPropertyMetadata(State.Default));
+        static readonly DependencyProperty ErrorMessageProperty = DependencyProperty.Register(nameof(ErrorMessage), typeof(string), typeof(MainWindow));
 
         public MainWindow()
         {
